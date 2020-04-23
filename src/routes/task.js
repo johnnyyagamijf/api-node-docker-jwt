@@ -1,11 +1,12 @@
 const routes = require('express').Router();
 const taskController = require('../controllers/TaskController');
 const validation = require('../authentication/Validation');
-const {verifyUserExistis} = require('../middleware/Utils');
+const {verifyTaskExistis} = require('../middleware/Utils');
 
 routes.get('/tasks', validation.validToken, taskController.store);
-routes.post('/tasks/', taskController.create);
-routes.put('/tasks/:id', taskController.show);
-routes.delete('/tasks/:id', taskController.remove);
+routes.post('/tasks/', validation.validToken, taskController.create);
+routes.get('/tasks/:id', validation.validToken, verifyTaskExistis, taskController.show);
+//routes.put('/tasks/:id', validation.validToken, verifyTaskExistis, taskController.show);
+routes.delete('/tasks/:id', validation.validToken, verifyTaskExistis,taskController.remove);
 
  module.exports = routes;

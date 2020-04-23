@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 module.exports.login  = async (req, res) =>{
     const {email, password} = req.body;
     const userDB = await User.findOne({email});
-  
+  console.log(userDB);
     if(userDB){
         const match = await bcrypt.compare(password, userDB.password);
         if(match)
