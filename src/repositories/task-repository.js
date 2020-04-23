@@ -6,9 +6,11 @@ exports.create = async(data) => {
   await product.save();
 }
 
-exports.showDataTask = async(id) => {
-  const task = await Task.findById(id);
-  console.log('meu id está aqui', task);
-  return task;
+exports.getTaskById = async(id) => {
+  return await Task.findById(id);;
+}
+
+exports.getListTasks = async() => {
+  return await Task.find();
 }
 

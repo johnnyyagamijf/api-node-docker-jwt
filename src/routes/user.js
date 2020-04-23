@@ -8,4 +8,4 @@ routes.post('/login', usesController.login);
 routes.get('/',  validation.validToken, usesController.index);
 routes.post('/create',  verifyUserExistis, usesController.create);
 
- module.exports = routes;
+module.exports = routes;

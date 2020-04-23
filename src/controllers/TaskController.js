@@ -1,7 +1,7 @@
 const Task = require('../models/Task');
 const repository = require('../repositories/task-repository');
 
-module.exports.create = async (req, res) => {
+ exports.create = async (req, res) => {
     const {title, description} = req.body;
     console.log(req.body);
     try {
@@ -16,16 +16,20 @@ module.exports.create = async (req, res) => {
       res.status(500).send({message: 'Request failed!'})
     }  
   }
-  module.exports.store = async (req, res) => {
-    const tasks = await repository.showDataTask(req.params.id);
-    return res.json(tasks);
+  exports.store = async (req, res, next) => {
+    const tasks = await repository.getListTasks();
+    return res.status(200).json(tasks);
   };
 
- module.exports.show = async (req, res) => {
-  const task = await repository.showDataTask(req.params.id);
+ exports.show = async (req, res) => {
+  const task = await repository.getTaskById(req.params.id);
   return res.status(200).json(task);
   };
 
-  module.exports.remove = async (req, res) => {
+  exports.remove = async (req, res) => {
     return res.json({method: 'remove'});
+  };
+
+  module.exports.update = async (req, res) => {
+    return res.json({method: 'update'});
   };

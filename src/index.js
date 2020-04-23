@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+require('dotenv').config();
 
 app.use(express.json());
-require('dotenv').config();
 app.use(morgan('dev'));
 
 // Rotas
