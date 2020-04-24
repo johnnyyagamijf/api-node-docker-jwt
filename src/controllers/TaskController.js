@@ -30,6 +30,6 @@ const repository = require('../repositories/task-repository');
     return res.json({method: 'remove'});
   };
 
-  module.exports.update = async (req, res) => {
+  exports.update = async (req, res) => {
     return res.json({method: 'update'});
   };
