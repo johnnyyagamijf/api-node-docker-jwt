@@ -25,4 +25,8 @@ require('./Config');
 const PORT = 3333;
 const HOST = '0.0.0.0';
 
+app.get('/', (req, res) =>{
+  res.send('api no ar!')
+});
+
 app.listen(PORT, HOST);

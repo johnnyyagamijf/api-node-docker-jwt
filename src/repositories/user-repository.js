@@ -6,6 +6,14 @@ exports.create = async(data) => {
   await user.save();
 }
 
+exports.authenticate = async(data) => {
+  const user = await User.findOne({
+      email: data.email,
+      password: data.password
+  });
+  return user;
+}
+
 exports.getUserById = async(id) => {
   return await User.findById(id);;
 }
