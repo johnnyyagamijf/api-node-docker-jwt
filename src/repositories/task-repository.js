@@ -7,10 +7,10 @@ exports.create = async(data) => {
 }
 
 exports.getTaskById = async(id) => {
-  return await Task.findById(id);;
+  return await Task.findById(id);
 }
 
-exports.getListTasks = async() => {
-  return await Task.find();
+exports.getListTasks = async(page) => {
+  return await Task.paginate({}, { page: page, limit: 1 }); 
 }
 

@@ -17,7 +17,8 @@ const repository = require('../repositories/task-repository');
     }  
   }
   exports.store = async (req, res, next) => {
-    const tasks = await repository.getListTasks();
+    const {page} = req.query;
+    const tasks = await repository.getListTasks(page);
     return res.status(200).json(tasks);
   };
 
