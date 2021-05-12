@@ -15,10 +15,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.get('/api', () => {
+  return res.json({message: `api rodando na porta ${PORT}`})
+})
 // Rotas
-app.use(require('../src/routes/task'));
-app.use(require('../src/routes/user'));
-
+app.use('/api/v1', require('./routes'));
 // Configuração do banco de dados
 require('./Config');
 
