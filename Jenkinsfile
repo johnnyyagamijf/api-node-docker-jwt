@@ -1,5 +1,9 @@
 	pipeline {
-		agent any
+		agent {
+		    docker {
+		      image 'node:lts-buster-slim'
+		    }
+		  }
 		stages {
 			// Obtém as credenciais para a conta desejada
 			stage('Get source') {
