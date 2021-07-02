@@ -1,32 +1,19 @@
-pipeline {
-    agent any
-    stages {
-        // Obtém as credenciais para a conta desejada
-        stage('Get source') {
-            steps {
-                git url: 'https://github.com/johnnyyagamijf/api-node-docker-jwt.git', branch: 'master'
-            }
-        }
-        // Pipeline da aplicação
-        stage('Docker build') {
-             steps {
-				script {
-                        dockerapp = docker.build("johnmdcampos/api-node-docker-jwt:${env.BUILD_ID}", '-f .') 
-					}						
-                   }
+	pipeline {
+		agent any
+		stages {
+			// Obtém as credenciais para a conta desejada
+			stage('Get source') {
+				steps {
+					git url: 'https://github.com/johnnyyagamijf/api-node-docker-jwt.git', branch: 'master'
+				}
 			}
-   			
-			stage('Docker push') {	
-                steps {
-					script {
-					
-					    docker.withRegistry('https://registry.hub.docker.com','dockerhub')
-                        dockerapp.push('latest')
-						dockerapp.push("${env.BUILD_ID}")
-					}
-                       						
-                    }
-                }
-
-        }
-    }
+			// Pipeline da aplicação
+			stage('Docker build') {
+				 steps {
+                        sh 'chmod +x Dockerfile'    
+                        sh "docker build -t johnmdcampos/api-node-docker-jwt:${env.BUILD_ID} -f ./Dockerfile ."   
+                        sh "docker tag johnmdcampos/api-node-docker-jwt:${env.BUILD_ID} johnmdcampos/api-node-docker-jwt:${env.BUILD_ID}:latest"
+                        sh "docker push johnmdcampos/api-node-docker-jwt:${env.BUILD_ID}:latest"  
+				}
+			}
+		}
