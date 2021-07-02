@@ -13,18 +13,14 @@ pipeline {
                         dockerapp = docker.build("johnmdcampos/api-node-docker-jwt:${env.BUILD_ID}",
 						'-f .')  
                    }
-          
-            stages {
-      			
-				stage('Docker push') {
-                    steps {
+			}
+   			
+			stage('Docker push') {
+                steps {
                         docker.withRegistry('https://registry.hub.docker.com','dockerhub')
                         dockerapp.push('latest')
 						dockerapp.push("${env.BUILD_ID}")						
                     }
                 }
-
-            }
         }
     }
-}
